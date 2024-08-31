@@ -1,4 +1,3 @@
-
 import 'package:firebase_app/component.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +10,16 @@ class Registeration extends StatefulWidget {
 }
 
 class _RegisterationState extends State<Registeration> {
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _email.dispose();
+    _password.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,16 +37,18 @@ class _RegisterationState extends State<Registeration> {
             const SizedBox(
               height: 50.0,
             ),
-            const ReuseableTextWidget(
+            ReuseableTextWidget(
                 text: 'Enter Your Email',
+                controller: _email,
                 textInputType: TextInputType.emailAddress),
             const SizedBox(
               height: 8.0,
             ),
-            const ReuseableTextWidget(
+            ReuseableTextWidget(
+                controller: _password,
                 text: 'Enter Password',
                 textInputType: TextInputType.visiblePassword),
-                const SizedBox(
+            const SizedBox(
               height: 25.0,
             ),
             ReuseableButton(

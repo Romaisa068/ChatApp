@@ -32,14 +32,16 @@ class ReuseableButton extends StatelessWidget {
 
 class ReuseableTextWidget extends StatelessWidget {
   const ReuseableTextWidget(
-      {super.key, required this.text, required this.textInputType});
+      {super.key, required this.text, required this.textInputType, required this.controller});
 
   final String text;
   final TextInputType textInputType;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller:controller ,
       keyboardType: textInputType,
       obscureText: true,
       style: KButtonTextStyle,

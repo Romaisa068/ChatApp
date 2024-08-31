@@ -11,6 +11,16 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _email = TextEditingController();
+  final _password = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _email.dispose();
+    _password.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,14 +42,16 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 50.0,
             ),
-            const ReuseableTextWidget(
+            ReuseableTextWidget(
+              controller: _email,
               text: 'Enter your Email',
               textInputType: TextInputType.emailAddress,
             ),
             const SizedBox(
               height: 8.0,
             ),
-            const ReuseableTextWidget(
+            ReuseableTextWidget(
+                controller: _password,
                 text: 'Enter Password',
                 textInputType: TextInputType.visiblePassword),
             const SizedBox(
@@ -55,4 +67,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
