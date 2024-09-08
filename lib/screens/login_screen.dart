@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:firebase_app/component.dart';
+import 'package:firebase_app/firebase/auth_service.dart';
+import 'package:firebase_app/screens/caht_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -11,6 +15,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  late final _auth = Auth();
+
   final _email = TextEditingController();
   final _password = TextEditingController();
 
@@ -53,13 +60,21 @@ class _LoginScreenState extends State<LoginScreen> {
             ReuseableTextWidget(
                 controller: _password,
                 text: 'Enter Password',
+                obscuretext: true,
                 textInputType: TextInputType.visiblePassword),
             const SizedBox(
               height: 25.0,
             ),
             ReuseableButton(
                 text: 'Log in',
-                onPressed: () {},
+                onPressed: ()async {
+                  final data = await _auth.loginUser(_email.text, _password.text);
+                  if(data != null){
+                    log('User loged In Successfully ');
+                  }
+                  // ignore: use_build_context_synchronously
+                  await Navigator.pushNamed(context, ChatScreen.id);
+                },
                 backgroundColor: Colors.lightBlue)
           ],
         ),

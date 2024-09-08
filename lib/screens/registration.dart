@@ -1,4 +1,8 @@
+import 'dart:developer';
+
 import 'package:firebase_app/component.dart';
+import 'package:firebase_app/firebase/auth_service.dart';
+import 'package:firebase_app/screens/welcome.dart';
 import 'package:flutter/material.dart';
 
 class Registeration extends StatefulWidget {
@@ -20,6 +24,7 @@ class _RegisterationState extends State<Registeration> {
     _password.dispose();
   }
 
+  final auth = Auth();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,13 +52,21 @@ class _RegisterationState extends State<Registeration> {
             ReuseableTextWidget(
                 controller: _password,
                 text: 'Enter Password',
+                obscuretext: true,
                 textInputType: TextInputType.visiblePassword),
             const SizedBox(
               height: 25.0,
             ),
             ReuseableButton(
                 text: 'Sign Up',
-                onPressed: () {},
+                onPressed: ()async {
+                final user =  await auth.createUser(_email.text, _password.text);
+                if(user != null){
+                  log('User Created Successfullu');
+                }
+                // ignore: use_build_context_synchronously
+                await Navigator.pushNamed(context, WelcomeScreen.id);
+                },
                 backgroundColor: Colors.lightBlue)
           ],
         ),
